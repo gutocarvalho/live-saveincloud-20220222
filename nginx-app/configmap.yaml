@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: index-html-configmap
+  namespace: live
+data:
+  index.html: |
+    <html>
+    <head>
+    <title>Bem vindo a live!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+      html { color-scheme: light dark; }
+      body { width: 35em; margin: 0 auto; font-family: Tahoma, Verdana, Arial, sans-serif; }
+      hr { display: block; margin-top: 0.5em;  margin-bottom: 0.5em; margin-left: auto; margin-right: auto; border-style: inset; border-width: 1px; } 
+    </style>
+    </head>
+    <body>
+    <br>
+    <h1>Bem vindo ao NGINX da live!</h1>
+    <p><h3>Se chegou até aqui, é porque deu tudo certo :)</h3></p>
+    <p><em>Obrigado por participar de nossa live!</em></p>
+    <p>Um oferecimento da
+    <a href="https://saveincloud.com/pt/">SaveInCloud</a>, uma nova experiência em Cloud.<br/>
+    <br>
+    <hr>
+    <p><em>Quer saber mais sobre mim?</em></p>
+    <p>Visite o meu site
+    <a href="https://gutocarvalho.net">gutocarvalho.net</a> :)<br/>
+    <p>Se puder manda um oi no twitter
+    <a href="https://twitter.com/gutocarvalho">@gutocarvalho</a>, eu vou gostar muito. <br/>
+    <br>
+    <hr>
+    <p>
+    <em>Site rodando em Cluster Kubernetes <strong>1.22.4</strong></em><br>
+    <em>Instalando via Control Panel & MarketPlace Jelastic.</em><br>
+    <em>Stack com CertManager + Letsencrypt + Nginx</em></p>
+    </body>
+    </html>

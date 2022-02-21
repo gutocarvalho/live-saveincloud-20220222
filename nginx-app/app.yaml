@@ -1,0 +1,57 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: live-nginx-app
+  namespace: live
+spec:
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+  minReadySeconds: 10
+  selector:
+    matchLabels:
+      project: nginx
+      environment: live
+  replicas: 1  
+  template:
+    metadata:
+      name: live-nginx
+      labels:
+        project: nginx
+        environment: live
+    spec:
+      containers:
+      - name: app
+        image: nginx:latest
+        ports:
+          - containerPort: 80
+        volumeMounts:
+          - name: nginx-index-file
+            mountPath: /usr/share/nginx/html/
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - "[ -f /var/run/nginx.pid ]"
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            scheme: HTTP
+            path: /index.html
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        resources:
+          limits:
+            cpu: 200m
+            memory: "200Mi"
+          requests:
+            cpu: "100m"
+            memory: "100Mi"
+      volumes:  
+      - name: nginx-index-file
+        configMap:
+          name: index-html-configmap

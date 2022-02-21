@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: live-nginx-ingress
+  namespace: live
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/proxy-body-size: 4096M
+spec:
+  tls:
+  - hosts:
+    - live.gutocarvalho.net
+    secretName: live.gutocarvalho.net.secret
+  rules:
+  - host: live.gutocarvalho.net
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: live-nginx-service
+            port:
+              number: 80
